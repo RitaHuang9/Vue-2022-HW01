@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="./style/index.css">
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="container">
+      <div class="main-block main-bg">
+        <div class="main-list">
+          <h2 class="main-title">Dissert</h2>
+          <div class="table table-hover mt-4">
+            <div class="table-head">
+              <div class="table-head-item">產品名稱</div>
+              <div class="table-head-item">
+                原價
+              </div>
+              <div class="table-head-item">
+                售價
+              </div>
+              <div class="table-head-item">
+                是否啟用
+              </div>
+              <div class="table-head-item">
+                查看細節
+              </div>
+            </div>
+            <div class="table-body" v-for="item in products">
+              <div class="table-body-item">{{ item.title }}</div>
+              <div class="table-body-item">{{ item.origin_price }}</div>
+              <div class="table-body-item">{{ item.price}}</div>
+              <div class="table-body-item">
+                <div v-if="item.is_enabled" class="text-success">
+                  <!-- 啟用 -->
+                  <span class="material-symbols-outlined">
+                    check_circle
+                  </span>
+                </div>
+                <div v-else>未啟用</div>
+              </div>
+              <div class="table-body-item">
+                <button v-on:click="temp = item" type="button" class="btn btn-primary">
+                  查看細節
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="total">目前有 <span>{{ products.length }}</span> 項產品</p>
+        </div>
+        <div class="main-product">
+          <h2 class="main-title">Introduce</h2>
+          <div v-if="temp.category">
+            <div class="card">
+              <div class="card-img">
+                <img :src="temp.imageUrl" class="card-img-top primary-image" alt="主圖">
+                <div class="card-img-right">
+                  <span v-for="(item,key) in temp.imagesUrl" v-bind:key="id">
+                    <img v-if="item" :src="item" alt="" class="images">
+                  </span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ temp.title }}
+                  <span class="badge">{{ temp.category }}</span>
+                </h5>
+                <p class="card-text">{{ temp.description }}</p>
+                <p class="card-content">{{ temp.content }}</p>
+                <div class="card-price">
+                  <p class="card-price-origin"><del>原價 {{ temp.price }} 元</del></p>
+                  <p class="card-price-new"><span>{{ temp.origin_price }} </span> {{ temp.unit }} / 元</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else class="search">
+            <img src="./style/images/search-02.png" alt="">
+            請選擇一個商品查看</img>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="module">
+    // 產品資料格式
+
+    const products = [
+      {
+        category: "甜甜圈",
+        content: "尺寸：14x14cm",
+        description:
+          "濃郁的草莓風味，中心填入滑順不膩口的卡士達內餡，帶來滿滿幸福感！",
+        id: "-L9div8jxVb2Ka_DYPwng",
+        is_enabled: 1,
+        origin_price: 150,
+        price: 99,
+        title: "草莓莓果夾心圈",
+        unit: "個",
+        num: 10,
+        imageUrl:
+          "https://images.unsplash.com/photo-1583182332473-b31ba08929c8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzR8fGRvbnV0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+        imagesUrl: [
+          "https://images.unsplash.com/photo-1626094309830-abbb0c99da4a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2832&q=80",
+          "https://images.unsplash.com/photo-1559656914-a30970c1affd?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTY0fHxkb251dHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+        ]
+      },
+      {
+        category: "蛋糕",
+        content: "尺寸：6寸",
+        description:
+          "蜜蜂蜜蛋糕，夾層夾上酸酸甜甜的檸檬餡，清爽可口的滋味讓人口水直流！",
+        id: "-McJ-VvcwfN1_Ye_NtVA",
+        is_enabled: 16,
+        origin_price: 1000,
+        price: 900,
+        title: "蜂蜜檸檬蛋糕",
+        unit: "個",
+        num: 1,
+        imageUrl:
+          "https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80",
+        imagesUrl: [
+          "https://images.unsplash.com/photo-1618888007540-2bdead974bbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=987&q=80"
+        ]
+      },
+      {
+        category: "蛋糕",
+        content: "尺寸：6寸",
+        description: "法式煎薄餅加上濃郁可可醬，呈現經典的美味及口感。",
+        id: "-McJ-VyqaFlLzUMmpPpm",
+        is_enabled: 1,
+        origin_price: 700,
+        price: 600,
+        title: "暗黑千層",
+        unit: "個",
+        num: 15,
+        imageUrl:
+          "https://images.unsplash.com/photo-1505253149613-112d21d9f6a9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDZ8fGNha2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+        imagesUrl: [
+          "https://images.unsplash.com/flagged/photo-1557234985-425e10c9d7f1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTA5fHxjYWtlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+          "https://images.unsplash.com/photo-1540337706094-da10342c93d8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDR8fGNha2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+        ]
+      }
+    ];
+
+    const { createApp } = Vue;
+
+    const app = {
+      data() {
+        return {
+          temp: {},
+          products
+        };
+      }
+    };
+
+    // console.log(data());
+    createApp(app).mount("#app");
+
+  </script>
+</body>
+
+<!-- <script src="https://unpkg.com/vue@next"></script> -->
