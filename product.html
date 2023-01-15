@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="main-block main-bg">
+                <div class="main-list">
+                    <h2 class="main-title">Dissert</h2>
+                    <div class="table table-hover mt-4">
+                        <div class="table-head">
+                            <div class="table-head-item">產品名稱</div>
+                            <div class="table-head-item">
+                                原價
+                            </div>
+                            <div class="table-head-item">
+                                售價
+                            </div>
+                            <div class="table-head-item">
+                                是否啟用
+                            </div>
+                            <div class="table-head-item">
+                                查看細節
+                            </div>
+                        </div>
+                        <div class="table-body" v-for="item in products" :key="item.id">
+                            <div class="table-body-item">{{ item.title }}</div>
+                            <div class="table-body-item">{{ item.origin_price }}</div>
+                            <div class="table-body-item">{{ item.price}}</div>
+                            <div class="table-body-item">
+                                <div v-if="item.is_enabled" class="text-success">
+                                    <!-- 啟用 -->
+                                    <span class="material-symbols-outlined">
+                                        check_circle
+                                    </span>
+                                </div>
+                                <div v-else>未啟用</div>
+                            </div>
+                            <div class="table-body-item">
+                                <button v-on:click="temp = item" type="button" class="btn btn-primary">
+                                    查看細節
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="total">目前有 <span>{{ products.length }}</span> 項產品</p>
+                </div>
+                <div class="main-product">
+                    <h2 class="main-title">Introduce</h2>
+                    <div v-if="temp.category">
+                        <div class="card">
+                            <div class="card-img">
+                                <img :src="temp.imageUrl" class="card-img-top primary-image" alt="主圖">
+                                <div class="card-img-right">
+                                    <span v-for="(item,key) in temp.imagesUrl" v-bind:key="id">
+                                        <img v-if="item" :src="item" alt="" class="images">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ temp.title }}
+                                    <span class="badge">{{ temp.category }}</span>
+                                </h5>
+                                <p class="card-text">{{ temp.description }}</p>
+                                <p class="card-content">{{ temp.content }}</p>
+                                <div class="card-price">
+                                    <p class="card-price-origin"><del>原價 {{ temp.price }} 元</del></p>
+                                    <p class="card-price-new"><span>{{ temp.origin_price }} </span> {{ temp.unit }} / 元
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="search">
+                        <img src="./style/images/search-02.png" alt="">
+                        請選擇一個商品查看</img>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./style/js/product.js" type="module"></script>
+</body>
+
+</html>
+
+<!-- <script src="https://unpkg.com/vue@next"></script> -->
