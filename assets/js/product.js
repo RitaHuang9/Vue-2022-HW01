@@ -18,6 +18,7 @@ createApp({
                 })
                 .catch((err) => {
                     window.location = 'login.html';
+                    alert(`尚未登入`)
                 })
         },
         // 取得資料
@@ -40,6 +41,7 @@ createApp({
         // cookie 取出
         // 當cookie有儲存就可以取出
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)rita009\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        // https://github.com/axios/axios#global-axios-defaults
         axios.defaults.headers.common['Authorization'] = token;
         // defaults 每次都會帶入
         this.checkAdmin();

@@ -1,6 +1,6 @@
 body {
     background-color: #fef5f5;
-    max-height: 100vh;
+    min-height: calc(100vh - 50px);
     font-size: 16px;
 }
 img {
