@@ -12,6 +12,11 @@ createApp({
     methods:{
         login(identity) {
             const url = 'https://vue3-course-api.hexschool.io/v2/';
+
+            if(this.user.username == '' || this.user.password == ''){
+                alert `請輸入帳號或密碼`
+            }
+
             axios.post(`${url}admin/signin`, this.user)
                 .then(function (res) {
                     const { token, expired } = res.data;
@@ -25,8 +30,8 @@ createApp({
                         window.location = './backstage/products.html';
                     }
                 })
-                .catch(function (err) {
-                    console.log(err);
+                .catch( () => {
+                    alert`您輸入的帳號或密碼錯誤`;
                 });
         }
     }

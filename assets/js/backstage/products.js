@@ -22,12 +22,11 @@ createApp({
                 .then((res) => {
                     this.products = res.data.products;
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch(() => {
+                    alert`尚未取得產品資訊`;
                 })
         },
         openModal(status, product) {
-            console.log(status, product);
             if (status == 'add') {
                 productModal.show();
                 this.isNew = true;
@@ -59,12 +58,18 @@ createApp({
                     this.getProduct();
                     productModal.hide();
                 })
+                .catch(()=>{
+                    alert `產品資料更新錯誤`
+                })
         },
         delProduct() {
             axios.delete(`${url}api/${api_path}/admin/product/${this.tempProduct.id}`)  //api資料結構在data裡
                 .then(() => {
                     this.getProduct();
                     delProductModal.hide();
+                })
+                .catch(()=>{
+                    alert `刪除產品錯誤`;
                 })
         }
     },
