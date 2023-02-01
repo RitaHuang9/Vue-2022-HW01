@@ -30,8 +30,8 @@ createApp({
                         window.location = './backstage/products.html';
                     }
                 })
-                .catch( () => {
-                    alert`您輸入的帳號或密碼錯誤`;
+                .catch( (err) => {
+                    alert(err.data.message);
                 });
         }
     }
