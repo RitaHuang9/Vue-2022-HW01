@@ -1,5 +1,5 @@
 export default{
-    props:['tempProduct','updateProduct','isNew'],
+    props:['tempProduct','updateProduct','isNew','uploadImg'],
     template:
     `
     <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
@@ -31,14 +31,14 @@ export default{
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                                         aria-labelledby="home-tab">
-                                        <div class="mb-2">
+                                        <!--  <div class="mb-2">
                                             <div class="mb-3">
                                                 <label for="imageUrl" class="form-label">輸入圖片網址</label>
                                                 <input v-model="tempProduct.imageUrl" type="text" class="form-control"
                                                     placeholder="請輸入圖片連結">
                                             </div>
                                             <img class="img-fluid" :src="tempProduct.imageUrl" alt="">
-                                        </div>
+                                        </div> -->
                                         <div v-if="Array.isArray(tempProduct.imagesUrl)" class="mt-4">
                                             <h4>新增多圖</h4>
                                             <template v-for="(img, key) in tempProduct.imagesUrl" :key="key + 12345">
@@ -63,9 +63,12 @@ export default{
                                     <div class="tab-pane fade" id="profile" role="tabpanel"
                                         aria-labelledby="profile-tab">
                                         <label for="formFile" class="form-label">請上傳商品圖片</label>
-                                        <input v-model="tempProduct.imageUrl" class="form-control mb-2" type="file"
-                                            id="formFile" name="file-to-upload">
-                                            <input type="submit" value="Upload">
+                                        <input 
+                                        @change="uploadImg" 
+                                        class="form-control mb-2 9" 
+                                        type="file"
+                                        id="formFile" name="file-to-upload">
+                                            
                                         <img class="img-fluid" :src="tempProduct.imageUrl" alt="">
                                     </div>
                                 </div>

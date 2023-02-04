@@ -16,8 +16,9 @@ createApp({
             tempProduct: {
                 imagesUrl: [],
             },
+            tempUploadImg:{}, //上傳圖片檔案
             isNew: false,
-            page:{},
+            page: {},
         }
     },
     methods: {
@@ -67,7 +68,7 @@ createApp({
         updateProduct() {
             let urlNew = `${url}api/${api_path}/admin/product`
             let method = 'post';
-            
+
             // 預設為新增，若為編輯則更換
             if (!this.isNew) {
                 method = 'put';
@@ -82,6 +83,7 @@ createApp({
                 .catch(() => {
                     alert`產品資料更新錯誤`
                 })
+            
         },
         delProduct() {
             axios.delete(`${url}api/${api_path}/admin/product/${this.tempProduct.id}`)  //api資料結構在data裡
@@ -92,7 +94,20 @@ createApp({
                 .catch(() => {
                     alert`刪除產品錯誤`;
                 })
-        }
+        },
+        // 圖片上傳
+        uploadImg(e) {
+            this.tempUploadImg = e.target.files[0];
+            const formData = new FormData();
+            formData.append('file-to-upload', this.tempUploadImg);
+            axios.post(`${url}api/${api_path}/admin/upload`, formData)
+                .then((res)=>{
+                    this.tempProduct.imageUrl = res.data.imageUrl;
+                })
+                .catch((err)=>{
+                    alert (err.message);
+                })
+        },
     },
     // 區域註冊
     components: {
